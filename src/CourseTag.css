@@ -1,0 +1,37 @@
+.courseTag {
+    position: relative;
+}
+.courseTag:hover {
+    border-color: red;
+}
+.courseTag:focus, .courseTag:focus-visible {
+    outline: 2px solid red;
+}
+
+.closeIcon {
+    display: none;
+}
+
+.courseTag:hover .closeIcon {
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 11;
+    position: absolute;
+    background-color: rgba(255,0,0,0.3);
+    border-radius: inherit;
+    color: black;
+} 
+
+l-ring {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    position: absolute;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: inherit;
+}
