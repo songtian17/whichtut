@@ -11,7 +11,7 @@ function CourseTag({courseCode, semester, onClick, fetchDataHandler, removeCours
         const controller = new AbortController()
         const signal = controller.signal
         const fetchCourseData = async () => {
-            const url = "http://localhost:3000?" + new URLSearchParams({
+            const url = import.meta.env.VITE_FUNCTION_GETCOURSEINFO + "?" + new URLSearchParams({
                 semester: semester,
                 courseCode: courseCode
             })
@@ -37,7 +37,6 @@ function CourseTag({courseCode, semester, onClick, fetchDataHandler, removeCours
         }
 
         if (semester && courseCode) {
-            // shouldFetch.current = false
             setLoading(true)
             fetchCourseData()
         }

@@ -23,7 +23,6 @@ function TimeTable({schedule}) {
 
     useEffect(() => {
         const newTimeDict = {};
-        console.log("schedule", schedule)
 
         schedule.forEach(course => {
             course.tutorials.forEach(tutorial => {
@@ -44,7 +43,6 @@ function TimeTable({schedule}) {
                 sorted[key] = newTimeDict[key]
                 return sorted
             }, {})
-            console.log("sortedTimeDict", sortedTimeDict)
             return sortedTimeDict;
         });
     }, [schedule]);
