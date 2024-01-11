@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react"
 import "./TimeTable.css"
 
-function DataRow({time, days}) {
+function DataRow({time, tutorials}) {
     return (
         <>
-        {days &&
+        {tutorials &&
             <tr>
                 <td>{time}</td>
-                <td>{days['MON'] ? days['MON'].map((day, index) => (<span key={index}>{`${day.venue} - ${day.courseCode}`}</span>)) : ''}</td>
-                <td>{days['TUE'] ? days['TUE'].map((day, index) => (<span key={index}>{`${day.venue} - ${day.courseCode}`}</span>)) : ''}</td>
-                <td>{days['WED'] ? days['WED'].map((day, index) => (<span key={index}>{`${day.venue} - ${day.courseCode}`}</span>)) : ''}</td>
-                <td>{days['THU'] ? days['THU'].map((day, index) => (<span key={index}>{`${day.venue} - ${day.courseCode}`}</span>)) : ''}</td>
-                <td>{days['FRI'] ? days['FRI'].map((day, index) => (<span key={index}>{`${day.venue} - ${day.courseCode}`}</span>)) : ''}</td>
+                <td>{tutorials['MON'] ? tutorials['MON'].map((tutorial, index) => (<span key={index}>{`${tutorial.venue} - ${tutorial.courseCode}`}</span>)) : ''}</td>
+                <td>{tutorials['TUE'] ? tutorials['TUE'].map((tutorial, index) => (<span key={index}>{`${tutorial.venue} - ${tutorial.courseCode}`}</span>)) : ''}</td>
+                <td>{tutorials['WED'] ? tutorials['WED'].map((tutorial, index) => (<span key={index}>{`${tutorial.venue} - ${tutorial.courseCode}`}</span>)) : ''}</td>
+                <td>{tutorials['THU'] ? tutorials['THU'].map((tutorial, index) => (<span key={index}>{`${tutorial.venue} - ${tutorial.courseCode}`}</span>)) : ''}</td>
+                <td>{tutorials['FRI'] ? tutorials['FRI'].map((tutorial, index) => (<span key={index}>{`${tutorial.venue} - ${tutorial.courseCode}`}</span>)) : ''}</td>
             </tr>
         }
         </>
@@ -26,19 +26,15 @@ function TimeTable({schedule}) {
         console.log("schedule", schedule)
 
         schedule.forEach(course => {
-            Object.values(course.indexes).forEach(indexClasses => {
-                indexClasses.forEach(indexClass => {
-                    if (indexClass.type === 'TUT') {
-                        if (!newTimeDict[indexClass.time]) {
-                            newTimeDict[indexClass.time] = {};
-                        }
-                        if (!newTimeDict[indexClass.time][indexClass.day]) {
-                            newTimeDict[indexClass.time][indexClass.day] = [];
-                        }
-                        const updatedIndexClass = { ...indexClass, courseCode: course.courseCode };
-                        newTimeDict[indexClass.time][indexClass.day].push(updatedIndexClass);
-                    }
-                });
+            course.tutorials.forEach(tutorial => {
+                if (!newTimeDict[tutorial.time]) {
+                    newTimeDict[tutorial.time] = {};
+                }
+                if (!newTimeDict[tutorial.time][tutorial.day]) {
+                    newTimeDict[tutorial.time][tutorial.day] = [];
+                }
+                const updatedIndexClass = { ...tutorial, courseCode: course.courseCode };
+                newTimeDict[tutorial.time][tutorial.day].push(updatedIndexClass);
             });
         });
 
@@ -68,7 +64,7 @@ function TimeTable({schedule}) {
                 </thead>
                 <tbody>
                     {Object.keys(timeDict).map((time) => (
-                        <DataRow key={time} time={time} days={timeDict[time]}></DataRow>
+                        <DataRow key={time} time={time} tutorials={timeDict[time]}></DataRow>
                     ))}
                 </tbody>
             </table>
